@@ -5,10 +5,10 @@
 	"author": "Todor Stoev",
 	"license": "MIT",
 	"scripts": {
-		"start": "node dist/server.js",
+		"start": "node dist/index.js",
 		"build": "tsc -p . && ncp src/schema dist/schema",
 		"start:dev": "npm run build:dev",
-		"build:dev": "nodemon src/server.ts --exec ts-node src/server.ts -e ts,graphql"
+		"build:dev": "nodemon src/index.ts --exec ts-node src/index.ts -e ts,graphql"
 	},
 	"dependencies": {
 		"@types/compression": "^0.0.36",
