@@ -5,19 +5,27 @@ import { createServer } from 'http';
 import compression from 'compression';
 import cors from 'cors';
 import schema from './schema';
+import { createConnection } from "typeorm";
 const app = express();
-const server = new ApolloServer({
-	schema,
-	validationRules: [ depthLimit(5) ]
-});
 
-app.use('*', cors());
 
-app.use(compression());
 
-server.applyMiddleware({ app, path: '/graphql' });
+createConnection().then(connection => {
+	const server = new ApolloServer({
+		schema,
+		validationRules: [depthLimit(5)],
+	});
 
-const httpServer = createServer(app);
-httpServer.listen({ port: 3000 }, (): void =>
-	console.log(`\n🚀      GraphQL is now running on http://localhost:3000/graphql`)
-);
+	app.use('*', cors());
+
+	app.use(compression());
+
+	server.applyMiddleware({ app, path: '/graphql' });
+	const httpServer = createServer(app);
+
+	httpServer.listen({ port: 3000 }, (): void =>
+		console.log(`\n🚀      GraphQL is now running on http://localhost:3000/graphql`)
+	);
+
+}).catch(error => console.log(error));
+

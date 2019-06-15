@@ -1,0 +1,13 @@
+{
+    "type": "oracle",
+    "host": "localhost",
+    "port": 1521,
+    "username": "SYSTEM",
+    "password": "test",
+    "database": "orcl",
+    "synchronize": true,
+    "logging": false,
+    "entities": [
+        "src/entity/**/*.ts"
+    ]
+}
